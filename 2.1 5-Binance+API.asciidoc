@@ -181,7 +181,7 @@ def get_symbol_price(symbol):
 +*In[18]:*+
 [source, ipython3]
 ----
-close_position(symbol,'long',0.01)
+open_position(symbol,'short',0.01)
 ----
 
 
@@ -199,7 +199,7 @@ get_opened_positions(symbol)
 +*In[20]:*+
 [source, ipython3]
 ----
-open_position(symbol,'long',0.01)
+close_position(symbol,'short',0.01)
 ----
 
 
