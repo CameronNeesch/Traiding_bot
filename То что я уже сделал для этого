@@ -1,0 +1,41 @@
+Команды
+
+# Balance in USDT
+
+balance=client.futures_account_balance()
+print(balance[6]['balance'])
+allusdt=float(balance[6]['balance'])
+
+# Order percent
+
+quantity_l=allusdt*0.1
+
+# Order size
+
+def get_symbol_price(symbol):
+    prices = client.get_all_tickers()
+    df=pd.DataFrame(prices)
+    return float(df[ df['symbol']==symbol]['price'])
+
+Order_size =round(float(quantity_l/get_symbol_price(symbol)),4)
+
+
+# Get open position price 
+
+def get_open_position_price(symbol):
+    status = client.futures_account()
+    positions=pd.DataFrame(status['positions'])
+    a = positions[positions['symbol']==symbol]['positionAmt'].astype(float).tolist()[0]
+    leverage = int(positions[positions['symbol']==symbol]['leverage'])
+    entryprice = positions[positions['symbol']==symbol]['entryPrice']
+    profit = float(status['totalUnrealizedProfit'])
+    balance = round(float(status['totalWalletBalance']),2)
+    if a>0:
+        pos = "long"
+    elif a<0:
+        pos = "short"
+    else: 
+        pos = ""
+    return(round(float(entryprice),3))
+
+get_open_position_price(symbol)
